@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { LanguageContext } from "../context/LanguageContext";
-import mainvideo from "../assets/Herosection.mp4";
+import mainvideo from "/Herosection.mp4";
 import { ChevronDown, Play, Calendar, ArrowRight } from "lucide-react";
 
 const Hero = () => {
@@ -79,11 +79,7 @@ const Hero = () => {
 
           {/* Buttons with hover effects */}
           <div className={`flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-700 delay-700 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <button className="group relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-4 rounded-lg font-medium font-[Inter] text-lg tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30 flex items-center justify-center overflow-hidden">
-              <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
-              <Play className="w-5 h-5 mr-2 transition-transform group-hover:scale-110" />
-              <span>{language === 'sv' ? 'Se hur det fungerar' : 'See how it works'}</span>
-            </button>
+            
             
             <button className="group relative border-2 border-white bg-transparent hover:bg-white/10 text-white px-8 py-4 rounded-lg font-medium font-[Inter] text-lg tracking-wide transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
               <span className="absolute right-0 w-12 h-full transform scale-x-0 origin-left transition-transform duration-300 ease-out bg-white/10 group-hover:scale-x-100"></span>
