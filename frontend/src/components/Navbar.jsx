@@ -16,11 +16,23 @@ const Navbar = () => {
   const { darkMode, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    const checkIfMobile = () => {
+      setIsMobileView(window.innerWidth < 768); // md breakpoint
+    };
+    
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkIfMobile);
+    };
   }, []);
 
   // Handle body overflow when sidebar is open
@@ -67,35 +79,37 @@ const Navbar = () => {
             />
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6 text-sm font-medium">
-            {navLinks.map((link, index) => (
-              link.hasDropdown ? (
-                <div 
-                  key={index}
-                  className={`group flex items-center space-x-1 cursor-pointer transition-all duration-300 hover:scale-105 ${
-                    darkMode ? 'text-gray-100 hover:text-indigo-300' : 'text-gray-700 hover:text-indigo-600'
-                  }`}
-                >
-                  <span>{link.name}</span>
-                  <ChevronDownIcon className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
-                </div>
-              ) : (
-                <a 
-                  key={index}
-                  href={link.href} 
-                  className={`transition-all duration-300 relative overflow-hidden group hover:scale-105 ${
-                    darkMode ? 'text-gray-100 hover:text-indigo-300' : 'text-gray-700 hover:text-indigo-600'
-                  }`}
-                >
-                  <span>{link.name}</span>
-                  <span className={`absolute left-0 bottom-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${
-                    darkMode ? 'bg-indigo-400' : 'bg-indigo-600'
-                  }`}></span>
-                </a>
-              )
-            ))}
-          </div>
+          {/* Desktop Navigation - Only shown on desktop */}
+          {!isMobileView && (
+            <div className="hidden md:flex items-center space-x-6 text-sm font-medium">
+              {navLinks.map((link, index) => (
+                link.hasDropdown ? (
+                  <div 
+                    key={index}
+                    className={`group flex items-center space-x-1 cursor-pointer transition-all duration-300 hover:scale-105 ${
+                      darkMode ? 'text-gray-100 hover:text-indigo-300' : 'text-gray-700 hover:text-indigo-600'
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    <ChevronDownIcon className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
+                  </div>
+                ) : (
+                  <a 
+                    key={index}
+                    href={link.href} 
+                    className={`transition-all duration-300 relative overflow-hidden group hover:scale-105 ${
+                      darkMode ? 'text-gray-100 hover:text-indigo-300' : 'text-gray-700 hover:text-indigo-600'
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    <span className={`absolute left-0 bottom-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${
+                      darkMode ? 'bg-indigo-400' : 'bg-indigo-600'
+                    }`}></span>
+                  </a>
+                )
+              ))}
+            </div>
+          )}
 
           {/* Right Side Controls */}
           <div className="flex items-center space-x-3">
@@ -116,7 +130,7 @@ const Navbar = () => {
               )}
             </button>
 
-            {/* Language Toggle */}
+            {/* Language Toggle - Hidden on mobile */}
             <button
               onClick={toggleLanguage}
               className={`hidden sm:flex items-center text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-300 hover:scale-105 ${
@@ -129,8 +143,8 @@ const Navbar = () => {
               {language === 'sv' ? 'English' : 'Svenska'}
             </button>
 
-            {/* Login Button */}
-            <button className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${
+            {/* Login Button - Hidden on mobile */}
+            <button className={`hidden sm:block px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${
               darkMode 
                 ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white' 
                 : 'bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-500 hover:to-blue-400 text-white'
@@ -218,6 +232,7 @@ const Navbar = () => {
                 className={`block py-2 transition-colors ${
                   darkMode ? 'hover:text-indigo-300' : 'hover:text-indigo-600'
                 }`}
+                onClick={() => setSidebarOpen(false)}
               >
                 <span className="font-medium">{link.name}</span>
               </a>
@@ -227,7 +242,10 @@ const Navbar = () => {
           <hr className={`${darkMode ? 'border-gray-700' : 'border-gray-200'}`} />
           
           <button 
-            onClick={toggleLanguage}
+            onClick={() => {
+              toggleLanguage();
+              setSidebarOpen(false);
+            }}
             className={`w-full flex items-center justify-center py-2 px-3 rounded-full transition-colors ${
               darkMode 
                 ? 'bg-gray-800 hover:bg-gray-700' 

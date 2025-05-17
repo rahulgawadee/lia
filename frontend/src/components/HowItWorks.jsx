@@ -1,130 +1,130 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
 import { useTheme } from '../context/Themecontect';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
-// Image URLs for step illustrations
+// High-quality illustration images (replace with your actual assets)
 const STEP_IMAGES = {
-  discover: "https://cdn.pixabay.com/photo/2018/03/10/12/00/teamwork-3213924_1280.jpg",
-  manage: "https://cdn.pixabay.com/photo/2017/07/31/11/31/laptop-2557571_1280.jpg",
-  evaluate: "https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg"
+  discover: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  manage: "https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+  evaluate: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
 };
 
-// Step indicator images instead of icons
-const STEP_INDICATOR_IMAGES = {
-  discover: "/api/placeholder/48/48", // Replace with actual image path
-  manage: "/api/placeholder/48/48", // Replace with actual image path
-  evaluate: "/api/placeholder/48/48" // Replace with actual image path
-};
+// Modern icon components (replace with your actual icons)
+const StepIndicator = ({ active, number }) => (
+  <div className="relative w-12 h-12">
+    <motion.div
+      className={`absolute inset-0 rounded-full flex items-center justify-center ${
+        active ? 'bg-indigo-600 shadow-lg shadow-indigo-500/30' : 'bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700'
+      }`}
+      initial={false}
+      animate={{
+        scale: active ? [1, 1.05, 1] : 1,
+        transition: active ? { duration: 0.6 } : {}
+      }}
+    >
+      {active ? (
+        <motion.svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 20 }}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </motion.svg>
+      ) : (
+        <span className={`text-lg font-bold ${active ? 'text-white' : 'text-gray-600 dark:text-gray-300'}`}>
+          {number}
+        </span>
+      )}
+    </motion.div>
+  </div>
+);
 
-const ProcessStep = ({ number, title, description, darkMode, isActive, onClick, inView, image }) => {
+const ProcessStep = ({ number, title, description, darkMode, isActive, onClick, inView }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, delay: number * 0.2 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: number * 0.15 }}
       onClick={onClick}
-      className={`relative cursor-pointer ${isActive ? 'z-10' : 'z-0'}`}
+      className={`relative cursor-pointer transition-all duration-300 ${isActive ? 'scale-[1.02]' : ''}`}
     >
       <div className="flex items-start group">
-        {/* Step number/indicator with image */}
-        <motion.div
-          whileHover={{ scale: 1.1, rotate: isActive ? 0 : 10 }}
+        {/* Step indicator */}
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center 
-            shadow-lg transition-all duration-300 ${
-            isActive
-              ? darkMode
-                ? 'bg-indigo-600 text-white shadow-indigo-500/50'
-                : 'bg-indigo-600 text-white shadow-indigo-500/50'
-              : darkMode
-                ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-          }`}
+          className="flex-shrink-0 mr-6"
         >
-          {isActive ? (
-            <motion.div
-              initial={{ scale: 0, rotate: -45 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            >
-              <img 
-                src={STEP_INDICATOR_IMAGES[Object.keys(STEP_INDICATOR_IMAGES)[number-1]]} 
-                alt={`Step ${number}`} 
-                className="w-8 h-8 object-contain"
-              />
-            </motion.div>
-          ) : (
-            <span className="text-2xl font-bold">{number}</span>
-          )}
+          <StepIndicator active={isActive} number={number} />
         </motion.div>
 
         {/* Content */}
-        <div className="ml-6 pt-2">
+        <div className="pt-1">
           <motion.h3
+            className={`text-xl md:text-2xl font-semibold mb-3 transition-colors ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            } ${isActive ? 'text-indigo-500' : ''}`}
             whileHover={{ x: isActive ? 0 : 5 }}
-            className={`text-xl md:text-2xl font-semibold mb-2 transition-all duration-300 ${
-              darkMode ? 'text-gray-100' : 'text-gray-800'
-            } ${isActive ? 'text-indigo-500' : ''} group-hover:text-indigo-500`}
           >
             {title}
           </motion.h3>
           
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={isActive ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="overflow-hidden"
-          >
-            <p
-              className={`text-base leading-relaxed transition-colors max-w-md ${
-                darkMode ? 'text-gray-300' : 'text-gray-600'
-              }`}
-            >
-              {description}
-            </p>
-          </motion.div>
+          <AnimatePresence>
+            {isActive && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="overflow-hidden"
+              >
+                <p className={`text-base leading-relaxed max-w-md ${
+                  darkMode ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  {description}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* Connection line with animated gradient for desktop */}
+      {/* Connection line - Desktop */}
       {number < 3 && (
         <div className="hidden lg:block relative">
-          <div
-            className={`absolute top-8 left-8 w-full h-1 transition-colors ${
-              darkMode 
-                ? 'bg-gray-700' 
-                : 'bg-gray-200'
-            }`}
-          />
+          <div className={`absolute top-6 left-6 w-full h-1 ${
+            darkMode ? 'bg-gray-800' : 'bg-gray-200'
+          }`} />
           {isActive && (
             <motion.div
-              initial={{ width: '0%', left: '8' }}
+              initial={{ width: 0 }}
               animate={{ width: '100%' }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              className={`absolute top-8 left-8 h-1 bg-gradient-to-r from-indigo-600 to-purple-500`}
+              className={`absolute top-6 left-6 h-1 bg-gradient-to-r from-indigo-500 to-purple-500`}
             />
           )}
         </div>
       )}
       
-      {/* Vertical connection line for mobile with animated gradient */}
+      {/* Connection line - Mobile */}
       {number < 3 && (
         <div className="lg:hidden relative">
-          <div
-            className={`absolute top-16 left-8 h-12 w-1 transition-colors ${
-              darkMode 
-                ? 'bg-gray-700' 
-                : 'bg-gray-200'
-            }`}
-          />
+          <div className={`absolute top-12 left-6 h-16 w-1 ${
+            darkMode ? 'bg-gray-800' : 'bg-gray-200'
+          }`} />
           {isActive && (
             <motion.div
-              initial={{ height: '0%', top: '16' }}
+              initial={{ height: 0 }}
               animate={{ height: '100%' }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              className={`absolute top-16 left-8 w-1 bg-gradient-to-b from-indigo-600 to-purple-500`}
+              className={`absolute top-12 left-6 w-1 bg-gradient-to-b from-indigo-500 to-purple-500`}
             />
           )}
         </div>
@@ -138,7 +138,7 @@ const HowItWorks = () => {
   const { darkMode } = useTheme();
   const [activeStep, setActiveStep] = useState(1);
   const [ref, inView] = useInView({
-    triggerOnce: true,
+    triggerOnce: false,
     threshold: 0.1,
   });
 
@@ -147,8 +147,8 @@ const HowItWorks = () => {
     if (!inView) return;
     
     const interval = setInterval(() => {
-      setActiveStep((prev) => (prev % 3) + 1);
-    }, 4000); // Increased to 4 seconds to give users more time to read
+      setActiveStep(prev => (prev % 3) + 1);
+    }, 5000);
     
     return () => clearInterval(interval);
   }, [inView]);
@@ -193,10 +193,10 @@ const HowItWorks = () => {
     <section
       ref={ref}
       className={`py-20 md:py-28 overflow-hidden transition-colors duration-300 ${
-        darkMode ? 'bg-gray-950' : 'bg-gray-50'
+        darkMode ? 'bg-gray-900' : 'bg-gray-50'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -204,33 +204,45 @@ const HowItWorks = () => {
           className="text-center mb-16"
         >
           <motion.h2
+            className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-clip-text ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            }`}
             initial={{ opacity: 0, y: -10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className={`text-3xl md:text-4xl font-bold mb-6 transition-colors ${
-              darkMode ? 'text-gray-100' : 'text-gray-900'
-            }`}
           >
             {language === 'sv' ? 'Så fungerar det' : 'How It Works'}
           </motion.h2>
           
-          {/* Modernized accent element instead of decorative underline */}
+          <motion.p
+            className={`max-w-2xl mx-auto text-lg ${
+              darkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            {language === 'sv' 
+              ? 'Enkel process för studenter, skolor och företag' 
+              : 'Simple process for students, schools and companies'}
+          </motion.p>
+          
           <motion.div 
-            className="flex justify-center items-center space-x-2 mb-4"
+            className="flex justify-center mt-8"
             initial={{ opacity: 0, scale: 0 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <span className={`h-1 w-6 rounded-full ${darkMode ? 'bg-indigo-700' : 'bg-indigo-600'}`}></span>
-            <span className={`h-1 w-10 rounded-full ${darkMode ? 'bg-indigo-600' : 'bg-indigo-500'}`}></span>
-            <span className={`h-1 w-6 rounded-full ${darkMode ? 'bg-indigo-700' : 'bg-indigo-600'}`}></span>
+            <div className={`h-1 w-24 rounded-full ${
+              darkMode ? 'bg-gradient-to-r from-indigo-600 to-purple-500' : 'bg-gradient-to-r from-indigo-500 to-purple-400'
+            }`} />
           </motion.div>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 xl:gap-16 items-center">
           {/* Left side: Process steps */}
           <div className="w-full lg:w-1/2">
-            <div className="space-y-14">
+            <div className="space-y-12 lg:space-y-14">
               {steps.map((step, index) => (
                 <ProcessStep
                   key={index}
@@ -241,116 +253,83 @@ const HowItWorks = () => {
                   isActive={activeStep === index + 1}
                   onClick={() => setActiveStep(index + 1)}
                   inView={inView}
-                  image={step.image}
                 />
               ))}
             </div>
           </div>
           
-          {/* Right side: Image display with enhanced animations */}
-          <div className="w-full lg:w-1/2 flex justify-center mt-10 lg:mt-0">
-            <div className="relative w-full max-w-lg">
-              {/* Interactive progress indicator */}
-              <div className="absolute -top-12 left-0 right-0 flex justify-center space-x-4 mb-6">
+          {/* Right side: Image display */}
+          <div className="w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0">
+            <div className="relative w-full max-w-lg h-96 lg:h-[28rem]">
+              {/* Progress indicators */}
+              <div className="absolute -top-10 left-0 right-0 flex justify-center space-x-3">
                 {[1, 2, 3].map((step) => (
-                  <motion.button
+                  <button
                     key={step}
                     onClick={() => setActiveStep(step)}
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`w-3 h-3 rounded-full ${
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                       activeStep === step 
-                        ? darkMode ? 'bg-indigo-500' : 'bg-indigo-600' 
+                        ? darkMode ? 'bg-indigo-400 w-6' : 'bg-indigo-600 w-6'
                         : darkMode ? 'bg-gray-700' : 'bg-gray-300'
-                    } transition-all duration-300`}
+                    }`}
                   />
                 ))}
               </div>
               
-              {/* Main image with animations */}
-              {steps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  className="relative aspect-video w-full overflow-hidden rounded-xl"
-                  initial={{ opacity: 0, scale: 0.92, y: 10 }}
-                  animate={{ 
-                    opacity: activeStep === index + 1 ? 1 : 0,
-                    scale: activeStep === index + 1 ? 1 : 0.92,
-                    y: activeStep === index + 1 ? 0 : 10,
-                    rotateY: activeStep === index + 1 ? 0 : -10
-                  }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 100, 
-                    damping: 20
-                  }}
-                  style={{
-                    position: activeStep === index + 1 ? 'relative' : 'absolute',
-                    top: 0,
-                    left: 0
-                  }}
-                >
-                  {/* Enhanced background glow effect */}
-                  <motion.div
-                    className="absolute -inset-2 rounded-xl opacity-75"
-                    style={{ 
-                      backgroundImage: `radial-gradient(circle at 50% 50%, ${darkMode ? 'rgba(99, 102, 241, 0.5)' : 'rgba(99, 102, 241, 0.3)'}, transparent 70%)` 
-                    }}
-                    animate={{ 
-                      scale: [1, 1.05, 1],
-                      opacity: [0.5, 0.7, 0.5]
-                    }}
-                    transition={{ 
-                      duration: 4,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  />
-                  
-                  {/* Modern card design */}
-                  <div className="relative overflow-hidden rounded-xl border border-indigo-500/30 shadow-2xl h-full">
-                    {/* Animated shine effect */}
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0"
-                      animate={{
-                        opacity: [0, 0.5, 0],
-                        left: ['-100%', '100%', '100%']
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        repeatDelay: 5
-                      }}
-                    />
-                    
-                    {/* Image with smooth hover effect */}
-                    <motion.div 
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-10000"
-                      style={{ backgroundImage: `url(${step.image})` }}
-                      animate={{ 
-                        scale: [1, 1.05, 1]
-                      }}
-                      transition={{ 
-                        duration: 20,
-                        repeat: Infinity,
-                        repeatType: "reverse"
-                      }}
-                    />
-                    
-                    {/* Enhanced overlay gradient */}
-                    <div className={`absolute inset-0 ${
-                      darkMode 
-                        ? 'bg-gradient-to-br from-indigo-900/40 to-gray-900/60' 
-                        : 'bg-gradient-to-br from-indigo-100/40 to-gray-100/30'
-                    }`}></div>
-
-                    {/* Step indicator badge */}
-                    <div className="absolute top-4 right-4 bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
-                      Step {index + 1}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+              {/* Animated image container */}
+              <AnimatePresence mode="wait">
+                {steps.map((step, index) => (
+                  activeStep === index + 1 && (
+                    <motion.div
+                      key={index}
+                      className="absolute inset-0 rounded-2xl overflow-hidden shadow-xl"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -50 }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                    >
+                      {/* Image with parallax effect */}
+                      <motion.div 
+                        className="absolute inset-0 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${step.image})` }}
+                        initial={{ scale: 1.1 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 10, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+                      />
+                      
+                      {/* Gradient overlay */}
+                      <div className={`absolute inset-0 ${
+                        darkMode 
+                          ? 'bg-gradient-to-t from-gray-900/80 via-gray-900/30 to-gray-900/80' 
+                          : 'bg-gradient-to-t from-white/70 via-white/20 to-white/70'
+                      }`} />
+                      
+                      {/* Step badge */}
+                      <div className={`absolute top-6 right-6 px-3 py-1 rounded-full text-sm font-medium shadow-md ${
+                        darkMode ? 'bg-indigo-600 text-white' : 'bg-white text-indigo-600'
+                      }`}>
+                        {language === 'sv' ? 'Steg' : 'Step'} {index + 1}
+                      </div>
+                      
+                      {/* Subtle floating elements */}
+                      <motion.div 
+                        className={`absolute bottom-6 left-6 w-16 h-16 rounded-full ${
+                          darkMode ? 'bg-indigo-500/20' : 'bg-indigo-100/70'
+                        }`}
+                        animate={{
+                          y: [0, -10, 0],
+                          scale: [1, 1.05, 1]
+                        }}
+                        transition={{
+                          duration: 6,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    </motion.div>
+                  )
+                ))}
+              </AnimatePresence>
             </div>
           </div>
         </div>
