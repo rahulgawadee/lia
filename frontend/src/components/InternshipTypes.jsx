@@ -369,14 +369,7 @@ const InternshipTypes = () => {
                     <p className={`text-sm mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
                       {item.extendedInfo}
                     </p>
-                    <div className="flex justify-end">
-                      <button 
-                        className={`flex items-center gap-1 text-sm px-3 py-1.5 rounded ${colorClasses.button} ${colorClasses.buttonText}`}
-                      >
-                        <span>{language === "sv" ? "Läs mer" : "Learn more"}</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
+                   
                   </div>
                 </motion.div>
               )}

@@ -7,6 +7,9 @@ import HowItWorks from './components/HowItWorks';
 import InternshipTypes from './components/InternshipTypes';
 import Footer from './components/Footer';
 import { ThemeProvider } from './context/Themecontect';
+import Students from './components/Students';
+
+
 
 function App() {
   return (
@@ -17,6 +20,8 @@ function App() {
         <main className="flex-grow">
           <Hero />
           <Features />
+          <Students/>
+       
           <HowItWorks />
           <InternshipTypes />
         </main>

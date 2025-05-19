@@ -3,12 +3,22 @@ import { LanguageContext } from '../context/LanguageContext';
 import { useTheme } from '../context/Themecontect';
 import { motion } from 'framer-motion';
 import logo from '../assets/logo.png';
+import { 
+  Mail, 
+  Phone, 
+  Linkedin, 
+  Moon, 
+  Sun, 
+  ChevronRight, 
+  Globe, 
+  Shield, 
+  Building
+} from 'lucide-react';
 
 // Logo component - replace with your actual logo import
 const Logo = ({ darkMode }) => (
   <div className="flex items-center">
-    <img src={logo  } alt="" className='w-32' />
-
+    <img src={logo} alt="LIAHub Logo" className="w-32" />
   </div>
 );
 
@@ -55,174 +65,227 @@ const Footer = () => {
 
   const content = footerContent[language];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
-    <footer className={`${darkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-50 text-gray-800'} transition-colors duration-300`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {/* Company Info */}
+    <footer 
+      className={`${darkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-50 text-black'} 
+      transition-colors duration-300 font-serif`} // Times Roman font family applied here
+      style={{ fontFamily: "'Times New Roman', Times, serif" }}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-16">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          className="space-y-4"
         >
-          <Logo darkMode={darkMode} />
-          <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            {content.description}
-          </p>
-          <div className={`space-y-1 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            <p>Org.nr: 123456-7890</p>
-            <p className="flex items-center gap-2">
-              <span className={`${darkMode ? 'text-green-400' : 'text-green-600'}`}>✓</span>
-              <span>{content.compliance}</span>
+          {/* Company Info Section */}
+          <motion.div variants={itemVariants} className="space-y-6">
+            <Logo darkMode={darkMode} />
+            <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} text-lg leading-relaxed`}>
+              {content.description}
             </p>
-          </div>
-        </motion.div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Building size={18} className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Org.nr: 123456-7890</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Shield size={18} className={`${darkMode ? 'text-green-400' : 'text-green-600'}`} />
+                <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>{content.compliance}</span>
+              </div>
+            </div>
+          </motion.div>
 
-        {/* Navigation */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-lg font-semibold mb-4">{language === 'en' ? 'Navigation' : 'Navigering'}</h3>
-          <ul className="space-y-3">
-            {content.navigation.map((item, index) => (
-              <motion.li 
-                key={index}
-                whileHover={{ x: 5 }}
-                transition={{ type: "spring", stiffness: 400 }}
+          {/* Navigation Section */}
+          <motion.div variants={itemVariants} className="space-y-6">
+            <h3 className="text-xl font-semibold mb-2 border-b border-gray-500 pb-2 inline-block">
+              {language === 'en' ? 'Navigation' : 'Navigering'}
+            </h3>
+            <ul className="space-y-4">
+              {content.navigation.map((item, index) => (
+                <motion.li 
+                  key={index}
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                  className="flex items-center"
+                >
+                  <ChevronRight size={16} className={`mr-2 ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                  <a 
+                    href="#" 
+                    className={`text-lg hover:underline ${darkMode ? 'hover:text-indigo-400' : 'hover:text-indigo-600'} transition-colors`}
+                  >
+                    {item}
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Contact Section */}
+          <motion.div variants={itemVariants} className="space-y-6">
+            <h3 className="text-xl font-semibold mb-2 border-b border-gray-500 pb-2 inline-block">
+              {language === 'en' ? 'Contact' : 'Kontakt'}
+            </h3>
+            <motion.button 
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className={`w-full px-6 py-3 rounded-lg font-medium transition-colors ${
+                darkMode ? 'bg-indigo-700 hover:bg-indigo-600' : 'bg-indigo-600 hover:bg-indigo-700'
+              } text-white shadow-lg text-lg flex items-center justify-center gap-2`}
+            >
+              {content.contact.demo}
+            </motion.button>
+            
+            <div className="space-y-4 mt-4">
+              <motion.a 
+                href={`mailto:${content.contact.email}`}
+                className="flex items-center gap-3 group"
+                whileHover={{ x: 3 }}
               >
-                <a 
-                  href="#" 
-                  className={`block py-1.5 ${darkMode ? 'hover:text-indigo-400' : 'hover:text-indigo-600'} transition-colors`}
-                >
-                  {item}
-                </a>
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
+                <Mail size={18} className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} text-lg group-hover:underline`}>
+                  {content.contact.email}
+                </span>
+              </motion.a>
+              
+              <motion.a 
+                href={`tel:${content.contact.phone}`}
+                className="flex items-center gap-3 group"
+                whileHover={{ x: 3 }}
+              >
+                <Phone size={18} className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} text-lg group-hover:underline`}>
+                  {content.contact.phone}
+                </span>
+              </motion.a>
+              
+              <motion.a 
+                href="#"
+                className="flex items-center gap-3 group"
+                whileHover={{ x: 3 }}
+              >
+                <Linkedin size={18} className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} text-lg group-hover:underline`}>
+                  {content.contact.linkedin}
+                </span>
+              </motion.a>
+            </div>
+          </motion.div>
 
-        {/* Contact */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="space-y-4"
-        >
-          <h3 className="text-lg font-semibold">{language === 'en' ? 'Contact' : 'Kontakt'}</h3>
-          <motion.button 
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className={`w-full md:w-auto px-6 py-3 rounded-lg font-medium transition-colors ${
-              darkMode ? 'bg-indigo-700 hover:bg-indigo-600' : 'bg-indigo-600 hover:bg-indigo-700'
-            } text-white shadow-lg`}
-          >
-            {content.contact.demo}
-          </motion.button>
-          <div className={`space-y-3 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            <motion.p 
-              className="flex items-center gap-3"
-              whileHover={{ x: 3 }}
-            >
-              <span className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>📧</span>
-              {content.contact.email}
-            </motion.p>
-            <motion.p 
-              className="flex items-center gap-3"
-              whileHover={{ x: 3 }}
-            >
-              <span className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>📞</span>
-              {content.contact.phone}
-            </motion.p>
-            <motion.p 
-              className="flex items-center gap-3"
-              whileHover={{ x: 3 }}
-            >
-              <span className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>🔗</span>
-              {content.contact.linkedin}
-            </motion.p>
-          </div>
-        </motion.div>
-
-        {/* Preferences */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="space-y-4"
-        >
-          <h3 className="text-lg font-semibold">{content.preferences.language}</h3>
-          <motion.select 
-            value={language}
-            onChange={toggleLanguage}
-            whileHover={{ scale: 1.02 }}
-            className={`w-full px-4 py-3 rounded-lg border transition-colors ${
-              darkMode 
-                ? 'bg-gray-800 border-gray-700 text-gray-200 hover:border-gray-600' 
-                : 'bg-white border-gray-300 text-gray-800 hover:border-gray-400'
-            } shadow-sm`}
-          >
-            <option value="en">English</option>
-            <option value="sv">Svenska</option>
-          </motion.select>
-          
-          <motion.button 
-            onClick={toggleTheme}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-colors ${
-              darkMode 
-                ? 'bg-gray-800 hover:bg-gray-700 text-gray-200' 
-                : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
-            } shadow-sm`}
-          >
-            {darkMode ? (
-              <>
-                <motion.span
-                  animate={{ rotate: [0, 20, -20, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
+          {/* Preferences Section */}
+          <motion.div variants={itemVariants} className="space-y-6">
+            <h3 className="text-xl font-semibold mb-2 border-b border-gray-500 pb-2 inline-block">
+              {language === 'en' ? 'Preferences' : 'Inställningar'}
+            </h3>
+            
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 text-lg">
+                  <Globe size={18} className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                  {content.preferences.language}
+                </label>
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  className="relative"
                 >
-                  🌙
-                </motion.span>
-                <span>{content.preferences.theme}</span>
-              </>
-            ) : (
-              <>
-                <motion.span
-                  animate={{ rotate: [0, 20, -20, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
+                  <select 
+                    value={language}
+                    onChange={toggleLanguage}
+                    className={`w-full px-4 py-3 rounded-lg border text-lg appearance-none ${
+                      darkMode 
+                        ? 'bg-gray-800 border-gray-700 text-gray-200 hover:border-gray-600' 
+                        : 'bg-white border-gray-300 text-gray-800 hover:border-gray-400'
+                    } shadow-sm`}
+                  >
+                    <option value="en">English</option>
+                    <option value="sv">Svenska</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <ChevronRight size={18} className="transform rotate-90" />
+                  </div>
+                </motion.div>
+              </div>
+              
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 text-lg">
+                  {darkMode ? 
+                    <Moon size={18} className="text-indigo-400" /> : 
+                    <Sun size={18} className="text-indigo-600" />
+                  }
+                  {content.preferences.theme}
+                </label>
+                <motion.button 
+                  onClick={toggleTheme}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-lg transition-colors text-lg ${
+                    darkMode 
+                      ? 'bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700' 
+                      : 'bg-white hover:bg-gray-100 text-gray-800 border border-gray-300'
+                  } shadow-sm`}
                 >
-                  🌞
-                </motion.span>
-                <span>{content.preferences.theme}</span>
-              </>
-            )}
-          </motion.button>
+                  {darkMode ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: [0, 20, -20, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        <Moon size={20} />
+                      </motion.div>
+                      <span>{language === 'en' ? 'Dark Mode' : 'Mörkt läge'}</span>
+                    </>
+                  ) : (
+                    <>
+                      <motion.div
+                        animate={{ rotate: [0, 20, -20, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        <Sun size={20} />
+                      </motion.div>
+                      <span>{language === 'en' ? 'Light Mode' : 'Ljust läge'}</span>
+                    </>
+                  )}
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Legal Footer */}
-      <div className={`${darkMode ? 'border-gray-800' : 'border-gray-200'} border-t py-6`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+      {/* Legal Footer Section */}
+      <div className={`${darkMode ? 'bg-gray-950 border-gray-800' : 'bg-gray-100 border-gray-200'} border-t`}>
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex flex-wrap justify-center gap-6 md:gap-8">
               {content.legal.map((item, index) => (
                 <motion.a 
                   key={index} 
                   href="#" 
                   whileHover={{ scale: 1.05 }}
-                  className={`text-sm ${darkMode ? 'hover:text-indigo-400' : 'hover:text-indigo-600'} hover:underline transition-colors`}
+                  className={`text-base ${darkMode ? 'hover:text-indigo-400' : 'hover:text-indigo-600'} hover:underline transition-colors`}
                 >
                   {item}
                 </motion.a>
               ))}
             </div>
-            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+            <p className={`text-base ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               {content.copyright}
             </p>
           </div>
