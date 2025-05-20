@@ -473,7 +473,7 @@ const InteractiveLIAPlatform = () => {
         <div 
           className={`rounded-xl overflow-hidden border p-6 transition-all duration-300
                      shadow-lg ${cardStyle} backdrop-blur-lg
-                     hover:shadow-xl hover:-translate-y-1`}
+                     hover:shadow-xl hover:-translate-y-1 h-60 flex flex-col`}
         >
           <div className="flex items-start mb-4">
             <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 ${iconStyles}`}>
@@ -484,7 +484,7 @@ const InteractiveLIAPlatform = () => {
             </h3>
           </div>
           
-          <p className={`mt-3 ${darkMode ? 'text-gray-300' : 'text-gray-600'} pl-16 text-sm leading-relaxed`}>
+          <p className={`mt-3 ${darkMode ? 'text-gray-300' : 'text-gray-600'} pl-16 text-sm leading-relaxed overflow-y-auto`}>
             {feature.description}
           </p>
         </div>
@@ -556,5 +556,7 @@ const InteractiveLIAPlatform = () => {
     </div>
   );
 };
+
+
 
 export default InteractiveLIAPlatform;

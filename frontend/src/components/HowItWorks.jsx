@@ -15,8 +15,8 @@ import {
 // Actual image URLs for each step
 const STEP_IMAGES = {
   discover: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2070&q=80",
-  manage: "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=2069&q=80",
-  evaluate: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=2069&q=80"
+  manage: "https://img.freepik.com/free-photo/internship-management-temporary-position-concept_53876-139703.jpg",
+  evaluate: "https://www.getmagicbox.com/wp-content/uploads/2024/01/MB-blog-193-01.jpg"
 };
 
 const ProcessStep = ({ title, description, darkMode, isActive, onClick, inView, icon: Icon, image }) => {

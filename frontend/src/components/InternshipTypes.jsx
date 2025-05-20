@@ -1,5 +1,5 @@
 import React from "react"
-import { useContext, useState } from "react"
+import { useContext, useState ,useEffect } from "react"
 import { motion } from "framer-motion"
 import { LanguageContext } from "../context/LanguageContext"
 import { useTheme } from "../context/Themecontect"
@@ -412,27 +412,200 @@ const InternshipTypes = () => {
     </motion.div>
   )
 
-  const FooterNote = () => (
+
+
+
+
+
+const FooterNote = () => {
+  const [language, setLanguage] = useState("en");
+  const { darkMode } = useTheme(); // Add this line to get the theme state
+  
+  return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.4 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true }}
-      className={`mt-12 text-center max-w-3xl mx-auto ${darkMode ? "text-gray-300" : "text-gray-600"}`}
+      className="mt-12 text-center max-w-3xl mx-auto"
     >
-      <div
-        className={`p-6 rounded-xl ${
-          darkMode ? "bg-blue-900/10 border border-blue-500/30" : "bg-blue-50 border border-blue-200"
+      <motion.div
+        className={`relative p-8 rounded-3xl overflow-hidden ${
+          darkMode ? "bg-gray-900 text-gray-100" : "bg-white text-gray-800"
         }`}
+        style={{
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          boxShadow: darkMode 
+            ? "0 0 40px -10px rgba(138, 43, 226, 0.5), 0 0 20px -5px rgba(123, 31, 162, 0.4) inset"
+            : "0 0 40px -10px rgba(138, 43, 226, 0.2), 0 0 20px -5px rgba(123, 31, 162, 0.1) inset"
+        }}
       >
-        <p className="text-base">
-          {language === "sv"
-            ? "📘 Vår flexibla plattform säkerställer att skolor på alla nivåer kan hantera praktikperioder på ett strukturerat, GDPR-säkert och användarvänligt sätt."
-            : "📘 Our flexible platform ensures that schools at all levels can manage internship periods in a structured, GDPR-compliant, and user-friendly way."}
-        </p>
-      </div>
+        {/* Dark glowy background effect */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div 
+            className={`w-full h-full ${darkMode ? "opacity-40" : "opacity-20"}`}
+            animate={{ 
+              scale: [1, 1.1, 1],
+              rotate: [0, 2, 0]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 20,
+              ease: "easeInOut" 
+            }}
+            style={{
+              background: darkMode
+                ? "radial-gradient(circle at 30% 20%, rgba(138, 43, 226, 0.8) 0%, transparent 60%), radial-gradient(circle at 70% 80%, rgba(123, 31, 162, 0.7) 0%, transparent 65%)"
+                : "radial-gradient(circle at 30% 20%, rgba(138, 43, 226, 0.3) 0%, transparent 60%), radial-gradient(circle at 70% 80%, rgba(123, 31, 162, 0.2) 0%, transparent 65%)"
+            }}
+          />
+        </div>
+        
+        {/* Animated pulsing border */}
+        <motion.div 
+          className="absolute inset-0 rounded-3xl"
+          animate={{
+            boxShadow: darkMode
+              ? [
+                  "0 0 0 1px rgba(138, 43, 226, 0.2) inset", 
+                  "0 0 0 1px rgba(138, 43, 226, 0.6) inset", 
+                  "0 0 0 1px rgba(138, 43, 226, 0.2) inset"
+                ]
+              : [
+                  "0 0 0 1px rgba(138, 43, 226, 0.1) inset", 
+                  "0 0 0 1px rgba(138, 43, 226, 0.3) inset", 
+                  "0 0 0 1px rgba(138, 43, 226, 0.1) inset"
+                ]
+          }}
+          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+        />
+        
+        {/* Main content area */}
+        <div className="relative z-10">
+          {/* Icon with floating animation */}
+          <motion.div 
+            className={`inline-flex items-center justify-center mb-4 p-3 rounded-full ${
+              darkMode 
+                ? "bg-gradient-to-tr from-purple-600 to-indigo-500"
+                : "bg-gradient-to-tr from-purple-400 to-indigo-400"
+            }`}
+            animate={{ 
+              y: [0, -6, 0],
+              boxShadow: darkMode
+                ? [
+                    "0 0 0 0 rgba(138, 43, 226, 0)",
+                    "0 0 25px 5px rgba(138, 43, 226, 0.6)",
+                    "0 0 0 0 rgba(138, 43, 226, 0)"
+                  ]
+                : [
+                    "0 0 0 0 rgba(138, 43, 226, 0)",
+                    "0 0 25px 5px rgba(138, 43, 226, 0.3)",
+                    "0 0 0 0 rgba(138, 43, 226, 0)"
+                  ]
+            }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          >
+            <span className="text-2xl">📘</span>
+          </motion.div>
+          
+          {/* Text with shine effect */}
+          <motion.p 
+            className={`text-lg font-medium mx-auto max-w-lg relative ${
+              darkMode ? "text-purple-50" : "text-gray-700"
+            }`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+          >
+           {language === "sv" 
+          ? "Vår flexibla plattform säkerställer att skolor på alla nivåer kan hantera praktikperioder på ett strukturerat, GDPR-säkert och användarvänligt sätt." 
+          : "Our flexible platform ensures that schools at all levels can manage internship periods in a structured, GDPR-compliant, and user-friendly way."}
+         {/* Shine effect overlay */}
+        <motion.span 
+          className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-purple-100 to-transparent opacity-0"
+          animate={{
+            opacity: [0, 0.2, 0],
+            left: ["-100%", "100%", "100%"]
+          }}
+          transition={{
+            repeat: Infinity,
+            repeatDelay: 5,
+            duration: 1.5,
+            ease: "easeInOut"
+          }}
+        />
+      </motion.p>
+          
+          {/* Floating particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={i}
+                className={`absolute w-2 h-2 rounded-full ${
+                  darkMode ? "bg-purple-400" : "bg-purple-300"
+                }`}
+                style={{
+                  left: `${10 + i * 12}%`,
+                  top: `${15 + (i % 4) * 20}%`,
+                  opacity: darkMode ? 0.4 : 0.3,
+                }}
+                animate={{
+                  y: [0, -20, 0],
+                  opacity: darkMode 
+                    ? [0.2, 0.7, 0.2]
+                    : [0.1, 0.4, 0.1],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4 + i * 0.5,
+                  ease: "easeInOut",
+                  delay: i * 0.3,
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Additional glowing orbs with adjusted opacity for light mode */}
+          <motion.div
+            className={`absolute w-32 h-32 rounded-full blur-3xl ${
+              darkMode ? "bg-purple-700 opacity-20" : "bg-purple-400 opacity-10"
+            }`}
+            style={{ top: "20%", right: "10%" }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: darkMode ? [0.1, 0.3, 0.1] : [0.05, 0.15, 0.05],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 8,
+              ease: "easeInOut",
+            }}
+          />
+          
+          <motion.div
+            className={`absolute w-24 h-24 rounded-full blur-3xl ${
+              darkMode ? "bg-indigo-600 opacity-20" : "bg-indigo-400 opacity-10"
+            }`}
+            style={{ bottom: "20%", left: "15%" }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: darkMode ? [0.1, 0.25, 0.1] : [0.05, 0.12, 0.05],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 6,
+              ease: "easeInOut",
+              delay: 2
+            }}
+          />
+        </div>
+      </motion.div>
     </motion.div>
-  )
+  );
+};
+
+
 
   return (
     <section
@@ -481,4 +654,4 @@ const InternshipTypes = () => {
   )
 }
 
-export default InternshipTypes
+export default InternshipTypes;

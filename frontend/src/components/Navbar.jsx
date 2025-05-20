@@ -10,8 +10,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import logo from '../assets/logo.png';
-import { Link } from 'lucide-react';
-import DemoForm from '../Pages/Demoform';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const { language, toggleLanguage } = useContext(LanguageContext);
@@ -19,6 +18,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -48,14 +48,36 @@ const Navbar = () => {
     return () => {
       document.body.style.overflow = 'auto';
     };
-  }, [sidebarOpen]);
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (productsDropdownOpen && !event.target.closest('.products-dropdown')) {
+        setProductsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [productsDropdownOpen]);
 
   // Navigation links array for easier management
   const navLinks = [
-    { name: language === 'sv' ? 'Produkter' : 'Products', hasDropdown: true },
+    { 
+      name: language === 'sv' ? 'Produkter' : 'Products', 
+      hasDropdown: true,
+      items: [
+        { name: 'Liahub', href: '/liahub' },
+        { name: 'Praktikly', href: '/https://pratiklywebsite.vercel.app/' }
+      ]
+    },
+    { name: language === 'sv' ? 'Vad är LIA?' : 'What is LIA?', href: '/what-is-lia' },
     { name: language === 'sv' ? 'Om oss' : 'About Us', href: '#about' },
-    { name: language === 'sv' ? 'Kontakt' : 'Contact', href: '#contact' },
-    { name: language === 'sv' ? 'Få en demo' : 'Get a Demo', href:'/demo' },
+    { name: language === 'sv' ? 'Kontakt' : 'Contact', href: '/contact' },
+    { name: language === 'sv' ? 'Få en demo' : 'Get a Demo', href: '/demo' },
   ];
 
   return (
@@ -72,13 +94,15 @@ const Navbar = () => {
         <div className="px-4 sm:px-6 flex justify-between items-center h-16">
           {/* Logo Section */}
           <div className="flex items-center">
-            <img
-              src={logo}
-              alt="Company Logo"
-              className={`h-9 w-auto transition-all duration-300 hover:scale-105 ${
-                darkMode ? 'filter brightness-0 invert' : ''
-              }`}
-            />
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Company Logo"
+                className={`h-9 w-auto transition-all duration-300 hover:scale-105 ${
+                  darkMode ? 'filter brightness-0 invert' : ''
+                }`}
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation - Only shown on desktop */}
@@ -88,17 +112,42 @@ const Navbar = () => {
                 link.hasDropdown ? (
                   <div 
                     key={index}
-                    className={`group flex items-center space-x-1 cursor-pointer transition-all duration-300 hover:scale-105 ${
+                    className={`products-dropdown group relative flex items-center space-x-1 cursor-pointer transition-all duration-300 hover:scale-105 ${
                       darkMode ? 'text-gray-100 hover:text-indigo-300' : 'text-gray-700 hover:text-indigo-600'
                     }`}
+                    onClick={() => setProductsDropdownOpen(!productsDropdownOpen)}
                   >
                     <span>{link.name}</span>
-                    <ChevronDownIcon className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
+                    <ChevronDownIcon className={`w-4 h-4 transition-transform duration-300 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
+                    
+                    {/* Products Dropdown */}
+                    {productsDropdownOpen && (
+                      <div className={`absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg py-1 z-50 transform origin-top-left transition-all duration-200 ${
+                        darkMode 
+                          ? 'bg-gray-800 border border-gray-700' 
+                          : 'bg-white border border-gray-200'
+                      }`}>
+                        {link.items.map((item, itemIdx) => (
+                          <Link 
+                            key={itemIdx}
+                            to={item.href}
+                            className={`block px-4 py-2 text-sm ${
+                              darkMode 
+                                ? 'text-gray-100 hover:bg-gray-700' 
+                                : 'text-gray-700 hover:bg-gray-100'
+                            }`}
+                            onClick={() => setProductsDropdownOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ) : (
-                  <a 
+                  <Link 
                     key={index}
-                    href={link.href} 
+                    to={link.href} 
                     className={`transition-all duration-300 relative overflow-hidden group hover:scale-105 ${
                       darkMode ? 'text-gray-100 hover:text-indigo-300' : 'text-gray-700 hover:text-indigo-600'
                     }`}
@@ -107,7 +156,7 @@ const Navbar = () => {
                     <span className={`absolute left-0 bottom-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${
                       darkMode ? 'bg-indigo-400' : 'bg-indigo-600'
                     }`}></span>
-                  </a>
+                  </Link>
                 )
               ))}
             </div>
@@ -191,7 +240,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="Company Logo"
-            className={`h-8 w-auto ${darkMode ? '' : ''}`}
+            className={`h-8 w-auto ${darkMode ? 'filter brightness-0 invert' : ''}`}
           />
           <button
             onClick={() => setSidebarOpen(false)}
@@ -216,28 +265,31 @@ const Navbar = () => {
                 <div className={`ml-4 pl-2 border-l-2 space-y-2 ${
                   darkMode ? 'border-gray-700' : 'border-gray-200'
                 }`}>
-                  <div className={`transition-colors ${
-                    darkMode ? 'hover:text-indigo-300' : 'hover:text-indigo-600'
-                  }`}>Sub Item 1</div>
-                  <div className={`transition-colors ${
-                    darkMode ? 'hover:text-indigo-300' : 'hover:text-indigo-600'
-                  }`}>Sub Item 2</div>
-                  <div className={`transition-colors ${
-                    darkMode ? 'hover:text-indigo-300' : 'hover:text-indigo-600'
-                  }`}>Sub Item 3</div>
+                  {link.items.map((item, itemIdx) => (
+                    <Link 
+                      key={itemIdx}
+                      to={item.href}
+                      className={`block py-1 transition-colors ${
+                        darkMode ? 'hover:text-indigo-300' : 'hover:text-indigo-600'
+                      }`}
+                      onClick={() => setSidebarOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
             ) : (
-              <a 
+              <Link 
                 key={index}
-                href={link.href} 
+                to={link.href} 
                 className={`block py-2 transition-colors ${
                   darkMode ? 'hover:text-indigo-300' : 'hover:text-indigo-600'
                 }`}
                 onClick={() => setSidebarOpen(false)}
               >
                 <span className="font-medium">{link.name}</span>
-              </a>
+              </Link>
             )
           ))}
           
