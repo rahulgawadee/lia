@@ -12,7 +12,16 @@ import {
   ChevronRight, 
   Globe, 
   Shield, 
-  Building
+  Building,
+  // Additional icons for navigation
+  Layout,
+  Lightbulb,
+  Users,
+  MessageSquare,
+  Layers,
+  Zap,
+  Info,
+  Contact
 } from 'lucide-react';
 
 // Logo component - replace with your actual logo import
@@ -30,7 +39,12 @@ const Footer = () => {
     en: {
       description: "Your go-to platform for connecting education with the future of work.",
       compliance: "GDPR Compliant",
-      navigation: ["Features", "Solutions", "About Us", "Contact"],
+      navigation: [
+        { name: "Features", icon: <Layers />, href: "#features" },
+        { name: "Solutions", icon: <Zap />, href: "#solutions" },
+        { name: "About Us", icon: <Info />, href: "#about" },
+        { name: "Contact", icon: <MessageSquare />, href: "#contact" }
+      ],
       contact: {
         demo: "Get a Demo",
         email: "info@liahub.com",
@@ -47,11 +61,16 @@ const Footer = () => {
     sv: {
       description: "Din plattform för att koppla samman utbildning med framtidens arbetsliv.",
       compliance: "GDPR-kompatibel",
-      navigation: ["Funktioner", "Lösningar", "Om oss", "Kontakt"],
+      navigation: [
+        { name: "Funktioner", icon: <Layers />, href: "#funktioner" },
+        { name: "Lösningar", icon: <Zap />, href: "#losningar" },
+        { name: "Om oss", icon: <Info />, href: "#om-oss" },
+        { name: "Kontakt", icon: <MessageSquare />, href: "#kontakt" }
+      ],
       contact: {
         demo: "Få en demo",
-        email: "info@liahub.com",
-        phone: "+46 70 123 4567",
+        email: "info@ultranous.com",
+        phone: "+46 734783859",
         linkedin: "LinkedIn"
       },
       preferences: {
@@ -104,7 +123,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <Building size={18} className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
-                <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Org.nr: 123456-7890</span>
+                <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Org.nr: 559291-9541</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield size={18} className={`${darkMode ? 'text-green-400' : 'text-green-600'}`} />
@@ -113,29 +132,54 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Navigation Section */}
+          {/* Enhanced Navigation Section */}
           <motion.div variants={itemVariants} className="space-y-6">
-            <h3 className="text-xl font-semibold mb-2 border-b border-gray-500 pb-2 inline-block">
+            <h3 className={`text-xl font-semibold mb-4 ${darkMode ? 'text-indigo-300' : 'text-indigo-700'} pb-2 border-b ${darkMode ? 'border-indigo-700' : 'border-indigo-300'} inline-block`}>
               {language === 'en' ? 'Navigation' : 'Navigering'}
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-5">
               {content.navigation.map((item, index) => (
                 <motion.li 
                   key={index}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                  className="flex items-center"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 8, scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  className={`transform transition-all duration-300 relative pl-2 ${
+                    darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'
+                  } rounded-lg py-2.5`}
                 >
-                  <ChevronRight size={16} className={`mr-2 ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
                   <a 
-                    href="#" 
-                    className={`text-lg hover:underline ${darkMode ? 'hover:text-indigo-400' : 'hover:text-indigo-600'} transition-colors`}
+                    href={item.href} 
+                    className={`flex items-center gap-3 text-lg group relative ${
+                      darkMode ? 'text-gray-200 hover:text-indigo-300' : 'text-gray-700 hover:text-indigo-600'
+                    } transition-colors`}
                   >
-                    {item}
+                    <div className={`p-1.5 rounded-md ${
+                      darkMode ? 'bg-indigo-900 text-indigo-300 group-hover:bg-indigo-800' : 'bg-indigo-100 text-indigo-700 group-hover:bg-indigo-200'
+                    } transition-colors`}>
+                      {React.cloneElement(item.icon, { size: 18 })}
+                    </div>
+                    <span className="font-medium">{item.name}</span>
+                    <motion.div 
+                      className={`absolute right-2 opacity-0 group-hover:opacity-100 transition-opacity ${
+                        darkMode ? 'text-indigo-400' : 'text-indigo-600'
+                      }`}
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    >
+                      <ChevronRight size={16} />
+                    </motion.div>
                   </a>
+                  <motion.div 
+                    className={`absolute left-0 top-0 h-full w-1 rounded-l-lg ${
+                      darkMode ? 'bg-indigo-600' : 'bg-indigo-500'
+                    } opacity-0 group-hover:opacity-100 transition-opacity`}
+                    layoutId="navigationHighlight"
+                  />
                 </motion.li>
               ))}
             </ul>
+         
           </motion.div>
 
           {/* Contact Section */}

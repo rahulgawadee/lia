@@ -10,6 +10,8 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import logo from '../assets/logo.png';
+import { Link } from 'lucide-react';
+import DemoForm from '../Pages/Demoform';
 
 const Navbar = () => {
   const { language, toggleLanguage } = useContext(LanguageContext);
@@ -53,7 +55,7 @@ const Navbar = () => {
     { name: language === 'sv' ? 'Produkter' : 'Products', hasDropdown: true },
     { name: language === 'sv' ? 'Om oss' : 'About Us', href: '#about' },
     { name: language === 'sv' ? 'Kontakt' : 'Contact', href: '#contact' },
-    { name: language === 'sv' ? 'Få en demo' : 'Get a Demo', href: '#demo' },
+    { name: language === 'sv' ? 'Få en demo' : 'Get a Demo', href:'/demo' },
   ];
 
   return (

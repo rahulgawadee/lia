@@ -271,80 +271,80 @@ const HowItWorks = () => {
             </div>
           </div>
           
-          {/* Right side: Image display with enhanced effects */}
+          {/* Right side: Image display with hover effects */}
           <div className="w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0">
-            <div className="relative w-full max-w-lg h-96 lg:h-[32rem] rounded-xl overflow-hidden shadow-2xl">
-              <AnimatePresence mode="wait">
-                {steps.map((step, index) => (
-                  activeStep === index && (
-                    <motion.div
-                      key={index}
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${step.image})` }}
-                      initial={{ opacity: 0, scale: 1.05 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 1.05 }}
-                      transition={{ duration: 0.7 }}
-                    >
-                      {/* Enhanced overlay with gradient */}
-                      <div className={`absolute inset-0 ${
-                        darkMode 
-                          ? 'bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-gray-900/30' 
-                          : 'bg-gradient-to-t from-white/90 via-white/60 to-white/30'
-                      }`} />
-                      
-                      {/* Content with enhanced animation */}
-                      <motion.div 
-                        className="absolute bottom-0 left-0 right-0 p-8 text-center"
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                      >
-                        {/* Decorative element */}
-                        <motion.div 
-                          className="w-12 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto mb-6"
-                          animate={{ width: [12, 48, 12] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        />
-                        
-                        <h3 className={`text-2xl font-bold mb-3 ${
-                          darkMode ? 'text-white' : 'text-gray-900'
-                        }`}>
-                          {step.title}
-                        </h3>
-                        <p className={`text-lg ${
-                          darkMode ? 'text-gray-300' : 'text-gray-700'
-                        }`}>
-                          {step.description}
-                        </p>
-                        
-                        {/* Step indicator */}
-                        <div className="flex justify-center mt-6 space-x-2">
-                          {steps.map((_, i) => (
-                            <motion.div
-                              key={i}
-                              className={`w-2 h-2 rounded-full ${
-                                i === index 
-                                  ? 'bg-indigo-500' 
-                                  : darkMode ? 'bg-gray-600' : 'bg-gray-300'
-                              }`}
-                              animate={i === index ? {
-                                scale: [1, 1.5, 1],
-                              } : {}}
-                              transition={{ 
-                                duration: 1.5,
-                                repeat: i === index ? Infinity : 0,
-                                repeatType: "loop",
-                              }}
-                              onClick={() => setActiveStep(i)}
-                            />
-                          ))}
-                        </div>
-                      </motion.div>
-                    </motion.div>
-                  )
-                ))}
-              </AnimatePresence>
+            {/* Simple container with hover effects */}
+            <div className="relative w-full max-w-lg group">
+              {/* Enhanced orange glow background effect (only visible on hover) */}
+              <div className="absolute -inset-6 bg-orange-500/40 rounded-2xl blur-2xl opacity-0 group-hover:opacity-80 transition-opacity duration-300"></div>
+              {/* Additional glow layer for more intensity */}
+              <div className="absolute -inset-3 bg-orange-400/30 rounded-xl blur-xl opacity-0 group-hover:opacity-90 transition-opacity duration-300"></div>
+              
+              {/* Main image container with hover border effect */}
+              <div className="relative w-full h-96 lg:h-[32rem] rounded-xl overflow-hidden shadow-2xl transition-all duration-300 group-hover:ring-2 group-hover:ring-blue-500">
+                {/* Inner content container */}
+                <div className="absolute inset-0 bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    {steps.map((step, index) => (
+                      activeStep === index && (
+                        <motion.div
+                          key={index}
+                          className="absolute inset-0 bg-cover bg-center"
+                          style={{ backgroundImage: `url(${step.image})` }}
+                          initial={{ opacity: 0, scale: 1.05 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 1.05 }}
+                          transition={{ duration: 0.7 }}
+                        >
+                          {/* Standard overlay with gradient */}
+                          <div className={`absolute inset-0 ${
+                            darkMode 
+                              ? 'bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-gray-900/30' 
+                              : 'bg-gradient-to-t from-white/90 via-white/60 to-white/30'
+                          }`} />
+                          
+                          {/* Content */}
+                          <motion.div 
+                            className="absolute bottom-0 left-0 right-0 p-8 text-center"
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.2, duration: 0.5 }}
+                          >
+                            {/* Decorative element */}
+                            <div className="w-12 h-1 bg-indigo-500 rounded-full mx-auto mb-6" />
+                            
+                            <h3 className={`text-2xl font-bold mb-3 ${
+                              darkMode ? 'text-white' : 'text-gray-900'
+                            }`}>
+                              {step.title}
+                            </h3>
+                            <p className={`text-lg ${
+                              darkMode ? 'text-gray-300' : 'text-gray-700'
+                            }`}>
+                              {step.description}
+                            </p>
+                            
+                            {/* Step indicator */}
+                            <div className="flex justify-center mt-6 space-x-2">
+                              {steps.map((_, i) => (
+                                <div
+                                  key={i}
+                                  className={`w-2 h-2 rounded-full ${
+                                    i === index 
+                                      ? 'bg-indigo-500' 
+                                      : darkMode ? 'bg-gray-600' : 'bg-gray-300'
+                                  }`}
+                                  onClick={() => setActiveStep(i)}
+                                />
+                              ))}
+                            </div>
+                          </motion.div>
+                        </motion.div>
+                      )
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
           </div>
         </div>

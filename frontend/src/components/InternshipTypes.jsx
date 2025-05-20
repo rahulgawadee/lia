@@ -133,47 +133,52 @@ const InternshipTypes = () => {
       blue: {
         bg: isDark ? "bg-blue-900/30" : "bg-blue-100",
         text: isDark ? "text-blue-300" : "text-blue-600",
-        border: isDark ? "border-blue-700" : "border-blue-300",
+        border: isDark ? "border-blue-500" : "border-blue-400",
         gradient: isDark ? "from-blue-900/50 to-blue-800/20" : "from-blue-100 to-blue-50",
         hover: isDark ? "hover:bg-blue-900/50" : "hover:bg-blue-50",
         button: isDark ? "bg-blue-800 hover:bg-blue-700" : "bg-blue-600 hover:bg-blue-500",
-        buttonText: "text-white"
+        buttonText: "text-white",
+        accentBorder: isDark ? "border-l-blue-500" : "border-l-blue-400"
       },
       purple: {
         bg: isDark ? "bg-purple-900/30" : "bg-purple-100",
         text: isDark ? "text-purple-300" : "text-purple-600",
-        border: isDark ? "border-purple-700" : "border-purple-300",
+        border: isDark ? "border-purple-500" : "border-purple-400",
         gradient: isDark ? "from-purple-900/50 to-purple-800/20" : "from-purple-100 to-purple-50",
         hover: isDark ? "hover:bg-purple-900/50" : "hover:bg-purple-50",
         button: isDark ? "bg-purple-800 hover:bg-purple-700" : "bg-purple-600 hover:bg-purple-500",
-        buttonText: "text-white"
+        buttonText: "text-white",
+        accentBorder: isDark ? "border-l-purple-500" : "border-l-purple-400"
       },
       green: {
         bg: isDark ? "bg-emerald-900/30" : "bg-emerald-100",
         text: isDark ? "text-emerald-300" : "text-emerald-600",
-        border: isDark ? "border-emerald-700" : "border-emerald-300",
+        border: isDark ? "border-emerald-500" : "border-emerald-400",
         gradient: isDark ? "from-emerald-900/50 to-emerald-800/20" : "from-emerald-100 to-emerald-50",
         hover: isDark ? "hover:bg-emerald-900/50" : "hover:bg-emerald-50",
         button: isDark ? "bg-emerald-800 hover:bg-emerald-700" : "bg-emerald-600 hover:bg-emerald-500",
-        buttonText: "text-white"
+        buttonText: "text-white",
+        accentBorder: isDark ? "border-l-emerald-500" : "border-l-emerald-400"
       },
       amber: {
         bg: isDark ? "bg-amber-900/30" : "bg-amber-100",
         text: isDark ? "text-amber-300" : "text-amber-600",
-        border: isDark ? "border-amber-700" : "border-amber-300",
+        border: isDark ? "border-amber-500" : "border-amber-400",
         gradient: isDark ? "from-amber-900/50 to-amber-800/20" : "from-amber-100 to-amber-50",
         hover: isDark ? "hover:bg-amber-900/50" : "hover:bg-amber-50",
         button: isDark ? "bg-amber-800 hover:bg-amber-700" : "bg-amber-600 hover:bg-amber-500",
-        buttonText: "text-white"
+        buttonText: "text-white",
+        accentBorder: isDark ? "border-l-amber-500" : "border-l-amber-400"
       },
       pink: {
         bg: isDark ? "bg-pink-900/30" : "bg-pink-100",
         text: isDark ? "text-pink-300" : "text-pink-600",
-        border: isDark ? "border-pink-700" : "border-pink-300",
+        border: isDark ? "border-pink-500" : "border-pink-400",
         gradient: isDark ? "from-pink-900/50 to-pink-800/20" : "from-pink-100 to-pink-50",
         hover: isDark ? "hover:bg-pink-900/50" : "hover:bg-pink-50",
         button: isDark ? "bg-pink-800 hover:bg-pink-700" : "bg-pink-600 hover:bg-pink-500",
-        buttonText: "text-white"
+        buttonText: "text-white",
+        accentBorder: isDark ? "border-l-pink-500" : "border-l-pink-400"
       }
     }
     
@@ -291,7 +296,6 @@ const InternshipTypes = () => {
     </motion.div>
   )
 
-  // Enhanced List View Component
   const ListView = () => (
     <motion.div
       variants={containerVariants}
@@ -308,11 +312,11 @@ const InternshipTypes = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className={`rounded-xl overflow-hidden transition-all duration-300 shadow-md border-l-4 ${
+              className={`rounded-lg overflow-hidden transition-all duration-300 shadow-md ${colorClasses.accentBorder} border-l-4 ${
                 darkMode 
-                  ? `bg-gray-800/80 border-${item.color}-500` 
-                  : `bg-white border-${item.color}-500`
-              } ${isExpanded ? 'shadow-xl' : ''} ${colorClasses.hover}`}
+                  ? `bg-gray-800/80` 
+                  : `bg-white`
+              } ${isExpanded ? 'shadow-lg' : ''} ${colorClasses.hover}`}
             >
               <div 
                 className={`p-5 cursor-pointer transition-colors ${isExpanded ? colorClasses.bg : ''}`}
@@ -369,7 +373,6 @@ const InternshipTypes = () => {
                     <p className={`text-sm mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
                       {item.extendedInfo}
                     </p>
-                   
                   </div>
                 </motion.div>
               )}
@@ -419,7 +422,7 @@ const InternshipTypes = () => {
     >
       <div
         className={`p-6 rounded-xl ${
-          darkMode ? "bg-blue-900/10 border border-blue-900/20" : "bg-blue-50 border border-blue-100"
+          darkMode ? "bg-blue-900/10 border border-blue-500/30" : "bg-blue-50 border border-blue-200"
         }`}
       >
         <p className="text-base">

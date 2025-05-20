@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { LanguageContext } from "../context/LanguageContext";
 import { ChevronDown, Calendar, ArrowRight, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const { language } = useContext(LanguageContext);
@@ -84,10 +85,12 @@ const Hero = () => {
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               }`}
             >
-              <span className="relative z-10 bg-gradient-to-r from-white via-violet-600 to-white bg-[length:300%_100%] bg-clip-text text-transparent animate-[glowingText_8s_linear_infinite]">
-                {language === "sv"
-                  ? "Stärker studenter. Möjliggör för arbetsgivare."
-                  : "Empowering Students. Enabling Employers."}
+              <span className="relative z-10">
+                <span className="circular-glow-text">
+                  {language === "sv"
+                    ? "Stärker studenter. Möjliggör för arbetsgivare."
+                    : "Empowering Students. Enabling Employers."}
+                </span>
               </span>
             </span>
             <span
@@ -95,10 +98,12 @@ const Hero = () => {
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               }`}
             >
-              <span className="relative z-10 bg-gradient-to-r from-violet-600 via-white to-violet-600 bg-[length:300%_100%] bg-clip-text text-transparent animate-[glowingText_8s_linear_infinite_1s]">
-                {language === "sv"
-                  ? "Stöttar skolor och universitet. Allt på ett ställe."
-                  : "Supporting Schools and Universities. All in One Place."}
+              <span className="relative z-10">
+                <span className="circular-glow-text delay-1s">
+                  {language === "sv"
+                    ? "Stöttar skolor och universitet. Allt på ett ställe."
+                    : "Supporting Schools and Universities. All in One Place."}
+                </span>
               </span>
             </span>
           </h1>
@@ -127,19 +132,24 @@ const Hero = () => {
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
-            <button 
+
+              <Link to = "/demo"  > <button 
               className="group relative overflow-hidden bg-white/5 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-medium font-[Inter] text-base sm:text-lg tracking-wide transition-all duration-300 hover:scale-105 flex items-center justify-center shadow-lg backdrop-blur-sm"
               aria-label={language === "sv" ? "Boka en demo" : "Book a Demo"}
             >
+            
               <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-violet-600 via-white to-violet-600 bg-[length:300%_100%] animate-[borderFlow_3s_linear_infinite]"></span>
               <span className="absolute inset-0 rounded-lg bg-black/90 m-0.5"></span>
               <span className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
               <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+            
+            
               <span className="relative z-10">
                 {language === "sv" ? "Boka en demo" : "Book a Demo"}
               </span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 transition-transform group-hover:translate-x-1" />
-            </button>
+            </button></Link>
+            
           </div>
         </div>
       </div>
@@ -167,6 +177,42 @@ const Hero = () => {
           <div className="absolute inset-0 pointer-events-none z-1 opacity-20 animate-[particles_15s_linear_infinite] bg-[radial-gradient(2px_2px_at_20%_30%,white,transparent),radial-gradient(2px_2px_at_40%_70%,white,transparent),radial-gradient(2px_2px_at_60%_20%,white,transparent),radial-gradient(2px_2px_at_80%_40%,white,transparent),radial-gradient(2px_2px_at_90%_80%,white,transparent),radial-gradient(2px_2px_at_15%_60%,white,transparent),radial-gradient(2px_2px_at_35%_90%,white,transparent),radial-gradient(2px_2px_at_65%_10%,white,transparent),radial-gradient(2px_2px_at_85%_50%,white,transparent),radial-gradient(2px_2px_at_45%_20%,white,transparent)] bg-[length:100%_100%]"></div>
         </div>
       )}
+
+      {/* Add this style tag for the circular glow effect */}
+      <style jsx>{`
+        @keyframes circularGlow {
+          0% {
+            background-position: 0% 50%;
+          }
+          25% {
+            background-position: 100% 0%;
+          }
+          50% {
+            background-position: 100% 100%;
+          }
+          75% {
+            background-position: 0% 100%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        
+        .circular-glow-text {
+          background: radial-gradient(circle at center, white, violet 50%, white 100%);
+          background-size: 200% 200%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: circularGlow 8s linear infinite;
+          padding: 0.1em 0;
+          display: inline-block;
+        }
+        
+        .circular-glow-text.delay-1s {
+          animation-delay: 1s;
+        }
+      `}</style>
     </div>
   );
 };
