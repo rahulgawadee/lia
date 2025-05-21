@@ -145,8 +145,8 @@ const LIAInternshipPage = () => {
             text: "Strengthen industry partnerships and enhance outcomes."
           }
         ],
-        finalCta: "Ready to Begin Your Journey?",
-        buttonText: "Get Started Today"
+       
+       
       }
     },
     swedish: {
@@ -259,55 +259,10 @@ const LIAInternshipPage = () => {
         <div className="absolute top-1/3 right-1/3 w-96 h-96 rounded-full bg-emerald-500/10 blur-[150px] opacity-20 animate-float-fast"></div>
       </div>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 shadow-sm">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center space-x-2"
-          >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white">
-              <Rocket className="w-4 h-4" />
-            </div>
-            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-              LIA Internship
-            </h1>
-          </motion.div>
-          
-          <div className="flex items-center space-x-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={toggleLanguage}
-              className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Toggle language"
-            >
-              <Languages className="w-5 h-5" />
-              <span className="text-sm font-medium">{language === 'english' ? 'SV' : 'EN'}</span>
-            </motion.button>
-            
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Toggle dark mode"
-            >
-              {darkMode ? (
-                <Sun className="w-5 h-5 text-yellow-300" />
-              ) : (
-                <Moon className="w-5 h-5 text-gray-700" />
-              )}
-            </motion.button>
-          </div>
-        </div>
-      </header>
-
+    
       <main className="relative z-10 container mx-auto px-6 py-12">
         {/* Hero Section */}
-        <section className="mb-24 text-center">
+        <section className="mb-24 text-center mt-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -338,19 +293,13 @@ const LIAInternshipPage = () => {
               whileTap={{ scale: 0.98 }}
               className="inline-block"
             >
-              <button className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                <span className="relative z-10 flex items-center gap-3">
-                  <span>{language === 'english' ? 'Get Started' : 'Kom igång'}</span>
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
+             
             </motion.div>
           </motion.div>
         </section>
 
         {/* How It Works Section */}
-        <section className="mb-28">
+        <section className="mb-28 ">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -545,17 +494,7 @@ const LIAInternshipPage = () => {
                 
                 <div className="text-center">
                   <h3 className="text-2xl font-bold text-white mb-6">{content[language].cta.finalCta}</h3>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="group relative overflow-hidden bg-white text-blue-600 dark:text-blue-800 font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
-                  >
-                    <span className="relative z-10 flex items-center gap-3">
-                      <span>{content[language].cta.buttonText}</span>
-                      <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                    </span>
-                    <span className="absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  </motion.button>
+                 
                 </div>
               </div>
               

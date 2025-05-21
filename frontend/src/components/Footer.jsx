@@ -47,8 +47,8 @@ const Footer = () => {
       ],
       contact: {
         demo: "Get a Demo",
-        email: "info@liahub.com",
-        phone: "+46 70 123 4567",
+        email: "info@ultranous.com",
+        phone: "+46 734783859",
         linkedin: "LinkedIn"
       },
       preferences: {
@@ -103,8 +103,7 @@ const Footer = () => {
   return (
     <footer 
       className={`${darkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-50 text-black'} 
-      transition-colors duration-300 font-serif`} // Times Roman font family applied here
-      style={{ fontFamily: "'Times New Roman', Times, serif" }}
+      transition-colors duration-300 font-['Helvetica_Neue']`}
     >
       <div className="max-w-7xl mx-auto px-6 py-16">
         <motion.div 
@@ -221,7 +220,8 @@ const Footer = () => {
               </motion.a>
               
               <motion.a 
-                href="#"
+                 href="https://www.linkedin.com/company/ultranous/"
+                target="_blank"
                 className="flex items-center gap-3 group"
                 whileHover={{ x: 3 }}
               >

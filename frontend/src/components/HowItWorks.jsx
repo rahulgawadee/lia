@@ -192,7 +192,7 @@ const HowItWorks = () => {
   return (
     <section
       ref={ref}
-      className={`py-20 md:py-28 overflow-hidden transition-colors duration-300 ${
+      className={`font-['Helvetica_Neue'] py-20 md:py-28 overflow-hidden transition-colors duration-300 ${
         darkMode ? 'bg-gray-900' : 'bg-gray-50'
       }`}
     >

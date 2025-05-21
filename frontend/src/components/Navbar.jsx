@@ -83,7 +83,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-11/12 max-w-6xl z-50 font-sans transition-all duration-300 rounded-full ${
+        className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-11/12 max-w-6xl z-50 font-['Helvetica_Neue'] transition-all duration-300 rounded-full ${
           scrolled ? 'shadow-lg' : ''
         } ${
           darkMode 
