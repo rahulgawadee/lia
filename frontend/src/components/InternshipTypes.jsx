@@ -418,8 +418,8 @@ const InternshipTypes = () => {
 
 
 const FooterNote = () => {
-  const [language, setLanguage] = useState("en");
-  const { darkMode } = useTheme(); // Add this line to get the theme state
+  const { language } = useContext(LanguageContext);
+  const { darkMode } = useTheme();
   
   return (
     <motion.div
@@ -609,7 +609,7 @@ const FooterNote = () => {
 
   return (
     <section
-      className={`py-20 px-4 transition-colors duration-500 ${
+      className={`py-20 px-4 font-['Helvetica_Neue'] transition-colors duration-500 ${
         darkMode 
           ? "bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950" 
           : "bg-gradient-to-b from-blue-50 via-white to-blue-50"

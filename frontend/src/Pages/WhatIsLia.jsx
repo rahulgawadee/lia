@@ -16,6 +16,7 @@ import {
   Award,
   ChevronRight
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const LIAInternshipPage = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -251,7 +252,7 @@ const LIAInternshipPage = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? 'dark bg-gray-900 text-gray-100' : 'bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900'}`}>
+    <div className={`min-h-screen font-['Helvetica_Neue'] transition-colors duration-500 ${darkMode ? 'dark bg-gray-900 text-gray-100' : 'bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900'}`}>
       {/* Floating background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-blue-500/10 blur-[100px] opacity-30 animate-float-slow"></div>
@@ -260,7 +261,7 @@ const LIAInternshipPage = () => {
       </div>
 
     
-      <main className="relative z-10 container mx-auto px-6 py-12">
+      <main className="relative z-10 container mx-auto px-6 py-12 font-['Helvetica_Neue']">
         {/* Hero Section */}
         <section className="mb-24 text-center mt-14">
           <motion.div
@@ -503,10 +504,37 @@ const LIAInternshipPage = () => {
             </div>
           </motion.div>
         </section>
+
+        {/* Add bottom CTA section */}
+        <div className={`mt-20 text-center rounded-2xl overflow-hidden relative ${
+          darkMode ? 'bg-gray-800/50' : 'bg-white/90'
+        } backdrop-blur-xl p-12 border ${
+          darkMode ? 'border-gray-700' : 'border-gray-200'
+        }`}>
+          <motion.h2 
+            className="text-3xl font-bold mb-6"
+            whileHover={{ scale: 1.05 }}
+          >
+            {language === 'sv' ? 'Redo att börja?' : 'Ready to get started?'}
+          </motion.h2>
+          <Link to="/demo">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-8 py-4 rounded-lg font-medium ${
+                darkMode 
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500' 
+                  : 'bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-500 hover:to-blue-400'
+              } text-white shadow-lg`}
+            >
+              {language === 'sv' ? 'Boka en demo' : 'Book a Demo'}
+            </motion.button>
+          </Link>
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 bg-gray-800 dark:bg-gray-900 text-white py-12">
+      <footer className="relative z-10 bg-gray-800 dark:bg-gray-900 text-white py-12 font-['Helvetica_Neue']">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-6 md:mb-0">
