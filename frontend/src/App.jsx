@@ -13,7 +13,7 @@ import Students from './components/Students';
 import Footer from './components/Footer';
 
 import WhatIsLia from './Pages/WhatIsLia';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import DemoForm from './Pages/Demoform';
 
@@ -57,11 +57,21 @@ function FloatingButton() {
   );
 }
 
+// ScrollToTop component to scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
         <Router>
+          <ScrollToTop />
           <div className="min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-grow">
