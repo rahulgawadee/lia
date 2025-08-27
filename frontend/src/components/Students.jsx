@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
-import { useTheme } from '../context/Themecontect';
+import { useTheme } from '../context/ThemeContext';
 import { 
   Users, School, Building2, Award, Briefcase, 
   Send, Heart, Compass, Clock, BarChart2, 

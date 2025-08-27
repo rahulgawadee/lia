@@ -2,7 +2,7 @@ import React from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { LanguageProvider } from './context/LanguageContext';
-import { ThemeProvider } from './context/Themecontect';
+import { ThemeProvider } from './context/ThemeContext';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 import WhatIsLia from './Pages/WhatIsLia';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
-import DemoForm from './Pages/Demoform';
+import DemoForm from './Pages/DemoForm';
 
 function HomePage() {
   return (

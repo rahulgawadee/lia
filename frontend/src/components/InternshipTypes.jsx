@@ -2,7 +2,7 @@ import React from "react"
 import { useContext, useState ,useEffect } from "react"
 import { motion } from "framer-motion"
 import { LanguageContext } from "../context/LanguageContext"
-import { useTheme } from "../context/Themecontect"
+import { useTheme } from "../context/ThemeContext"
 import { 
   GraduationCap, 
   Briefcase, 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
-import { useTheme } from '../context/Themecontect';
+import { useTheme } from '../context/ThemeContext';
 import { motion, useAnimation } from 'framer-motion';
 import { Zap, Users, Clock, FileCheck, ArrowRight, Sparkles } from 'lucide-react';
 
@@ -236,7 +236,7 @@ const Features = () => {
 
   return (
     <section
-      className={`py-20 px-4 font-['Helvetica_Neue'] transition-colors duration-500 ${
+      className={`py-20 px-4 font-sans transition-colors duration-500 ${
         darkMode 
           ? "bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950" 
           : "bg-gradient-to-b from-blue-50 via-white to-blue-50"
@@ -349,7 +349,7 @@ const Features = () => {
       </motion.div>
       
       {/* Enhanced animation styles */}
-      <style jsx global>{`
+      <style>{`
         @keyframes pulse-slow {
           0%, 100% { opacity: 0.7; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.05); }

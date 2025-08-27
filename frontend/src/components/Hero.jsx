@@ -63,7 +63,7 @@ const Hero = () => {
       </div>
 
       {/* Content container */}
-      <div className="mt-20 absolute inset-0 z-20 flex flex-col justify-center text-white px-4 sm:px-6 font-['Helvetica_Neue']">
+      <div className="mt-20 absolute inset-0 z-20 flex flex-col justify-center text-white px-4 sm:px-6 font-sans">
         <div
           className={`transition-all duration-1000 ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
@@ -72,7 +72,7 @@ const Hero = () => {
          
 
           {/* Headline */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Helvetica_Neue'] font-bold leading-tight mb-3 sm:mb-4 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-sans font-bold leading-tight mb-3 sm:mb-4 tracking-tight">
             <span
               className={`block relative transition-all duration-700 delay-100 ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
@@ -105,12 +105,12 @@ const Hero = () => {
           <div className={`mb-6 sm:mb-8 transition-all duration-700 delay-500 ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}>
-            <p className="text-sm sm:text-base md:text-lg font-['Helvetica_Neue'] font-medium leading-relaxed text-white/90 drop-shadow-lg mb-2 sm:mb-3 backdrop-blur-sm bg-black/10 p-2 rounded-md inline-block">
+            <p className="text-sm sm:text-base md:text-lg font-sans font-medium leading-relaxed text-white/90 drop-shadow-lg mb-2 sm:mb-3 backdrop-blur-sm bg-black/10 p-2 rounded-md inline-block">
               {language === "sv"
                 ? "Hitta rätt praktik. Koppla samman med rätt talanger. Förenkla LIA-hanteringen."
                 : "Find the right internship. Connect with the right talent. Simplify LIA management."}
             </p>
-            <p className="text-xs sm:text-sm md:text-base font-['Helvetica_Neue'] leading-relaxed text-white/80 max-w-2xl">
+            <p className="text-xs sm:text-sm md:text-base font-sans leading-relaxed text-white/80 max-w-2xl">
               {language === "sv"
                 ? "LIA (Lärande i Arbete) är en avgörande del av YH-utbildningen i Sverige. Den säkerställer att studenter får praktisk erfarenhet, samtidigt som arbetsgivare får kontakt med nya talanger – framtida experter och karriärinriktade studerande. Vår LIA-plattform (LIA Hub) bygger broar mellan studenter, företag och YH-skolor och gör praktikprocessen smidig, effektiv och värdefull för alla parter."
                 : "LIA (Learning in the Workplace) is a crucial part of higher vocational education (YH) in Sweden. It ensures that students gain practical experience while employers connect with new talent – future experts and career-driven learners. Our LIA platform (LIA Hub) builds bridges between students, companies, and YH schools, making the internship process smooth, efficient, and valuable for all parties involved."}
@@ -122,7 +122,7 @@ const Hero = () => {
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}>
             <Link to="/demo">
-              <button className="group relative overflow-hidden bg-white/5 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-['Helvetica_Neue'] font-bold text-base sm:text-lg tracking-wide transition-all duration-300 hover:scale-105 flex items-center justify-center shadow-lg backdrop-blur-sm"
+              <button className="group relative overflow-hidden bg-white/5 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-sans font-bold text-base sm:text-lg tracking-wide transition-all duration-300 hover:scale-105 flex items-center justify-center shadow-lg backdrop-blur-sm"
                 aria-label={language === "sv" ? "Boka en demo" : "Book a Demo"}
               >
                 <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-violet-600 via-white to-violet-600 bg-[length:300%_100%] animate-[borderFlow_3s_linear_infinite]"></span>
@@ -144,7 +144,7 @@ const Hero = () => {
         scrolled ? "opacity-0" : "opacity-100"
       }`}>
         <div className="flex flex-col items-center animate-bounce bg-black/20 backdrop-blur-sm px-3 py-1 sm:px-4 sm:py-2 rounded-full">
-          <span className="text-white/80 text-xs sm:text-sm mb-1 sm:mb-2 drop-shadow-lg font-['Helvetica_Neue'] font-medium">
+          <span className="text-white/80 text-xs sm:text-sm mb-1 sm:mb-2 drop-shadow-lg font-sans font-medium">
             {language === "sv" ? "Scrolla för mer" : "Scroll for more"}
           </span>
           <ChevronDown className="text-white w-4 h-4 sm:w-6 sm:h-6 animate-pulse drop-shadow-lg" />
@@ -162,7 +162,7 @@ const Hero = () => {
       )}
 
       {/* Add this style tag for the circular glow effect */}
-      <style jsx>{`
+      <style>{`
         @keyframes circularGlow {
           0% {
             background-position: 0% 50%;
@@ -196,8 +196,8 @@ const Hero = () => {
           animation-delay: 1s;
         }
       `}</style>
-    </div>
-  );
-};
+     </div>
+   );
+ };
 
-export default Hero;
+ export default Hero;

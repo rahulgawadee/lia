@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTheme } from "../context/Themecontect";
+import { useTheme } from "../context/ThemeContext";
 import { useLanguage } from "../context/LanguageContext";
 
 // Move translations outside of component to avoid re-creation

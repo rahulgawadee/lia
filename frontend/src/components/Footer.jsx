@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
-import { useTheme } from '../context/Themecontect';
+import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import logo from '../assets/logo.png';
 import { 
