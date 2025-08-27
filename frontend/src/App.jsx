@@ -12,10 +12,10 @@ import InternshipTypes from './components/InternshipTypes';
 import Students from './components/Students';
 import Footer from './components/Footer';
 
-import WhatIsLia from './Pages/WhatIsLia.jsx';
+import WhatIsLia from './Pages/WhatIsLia';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
-import DemoForm from './Pages/DemoForm.jsx';
+import DemoForm from './Pages/Demoform';
 
 function HomePage() {
   return (
