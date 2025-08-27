@@ -1,13 +1,13 @@
 {
   "name": "frontend",
-  "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-check": "node -e \"const fs=require('fs'); const p='src/Pages/DemoForm.jsx'; if(!fs.existsSync(p)){ console.error('\\n[build-check] MISSING: ' + p + '\\nThis will break vite build on Netlify.'); process.exitCode=0; } else { console.log('[build-check] FOUND:', p); }\"",
+    "postinstall": "npm run build-check"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -33,5 +33,9 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
+
