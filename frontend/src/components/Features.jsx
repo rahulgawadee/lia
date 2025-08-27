@@ -80,7 +80,7 @@ const FeatureCard = ({ icon, title, description, darkMode, index }) => {
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ y: -12, scale: 1.04 }}
       transition={{ type: "spring", stiffness: 300, damping: 15 }}
-      className={`font-['Helvetica_Neue'] h-full min-h-64 p-8 rounded-xl border-2 overflow-hidden relative group ${
+      className={`font-sans h-full min-h-64 p-8 rounded-xl border-2 overflow-hidden relative group ${
         darkMode 
           ? 'bg-gray-800/60 border-gray-700 backdrop-blur-sm' 
           : 'bg-white border-gray-200'
@@ -126,7 +126,7 @@ const FeatureCard = ({ icon, title, description, darkMode, index }) => {
       </div>
 
       {/* Card content with Helvetica Neue */}
-      <div className="h-full flex flex-col justify-center items-center text-center relative z-10 py-4 font-['Helvetica_Neue']">
+      <div className="h-full flex flex-col justify-center items-center text-center relative z-10 py-4 font-sans">
         {/* Icon with enhanced glowing and pulsing effect */}
         <div className={`w-24 h-24 rounded-2xl flex items-center justify-center mb-8
           transform transition-all duration-500 group-hover:scale-105
@@ -144,14 +144,14 @@ const FeatureCard = ({ icon, title, description, darkMode, index }) => {
 
         {/* Content with larger text and animations */}
         <motion.h3 
-          className={`text-2xl font-bold mb-5 font-['Helvetica_Neue'] ${
+          className={`text-2xl font-bold mb-5 font-sans ${
             darkMode ? 'text-white' : 'text-gray-900'
           } transition-all duration-500 group-hover:translate-y-0`}
         >
           {title}
         </motion.h3>
         
-        <p className={`text-base leading-relaxed max-w-xs font-['Helvetica_Neue'] ${
+        <p className={`text-base leading-relaxed max-w-xs font-sans ${
           darkMode ? 'text-gray-300 group-hover:text-gray-100' : 'text-gray-600 group-hover:text-gray-800'
         } transition-colors duration-500`}>
           {description}
@@ -282,13 +282,13 @@ const Features = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative font-['Helvetica_Neue']"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative font-sans"
       >
         {/* Section header with Helvetica Neue */}
         <div className="text-center mb-16">
           <motion.div 
             variants={headerVariants}
-            className={`font-['Helvetica_Neue'] inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium mb-4 ${
+            className={`font-sans inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium mb-4 ${
               darkMode 
                 ? 'bg-indigo-900/40 text-indigo-200 border border-indigo-700/60' 
                 : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
@@ -300,7 +300,7 @@ const Features = () => {
           
           <motion.h2
             variants={headerVariants}
-            className={`font-['Helvetica_Neue'] text-4xl font-bold mb-4 ${
+            className={`font-sans text-4xl font-bold mb-4 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}
           >
@@ -323,7 +323,7 @@ const Features = () => {
           
           <motion.p
             variants={headerVariants}
-            className={`font-['Helvetica_Neue'] mt-3 max-w-2xl mx-auto text-lg ${
+            className={`font-sans mt-3 max-w-2xl mx-auto text-lg ${
               darkMode ? 'text-gray-300' : 'text-gray-600'
             }`}
           >
